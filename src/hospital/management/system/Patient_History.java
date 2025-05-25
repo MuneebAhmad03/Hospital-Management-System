@@ -10,7 +10,7 @@ public class Patient_History extends JFrame {
     Patient_History() {
 
         JPanel panel = new JPanel();
-        panel.setBounds(5, 5, 790, 390);
+        panel.setBounds(5, 5, 990, 390);
         panel.setBackground(new Color(221, 230, 237));
         panel.setLayout(null);
         add(panel);
@@ -20,14 +20,14 @@ public class Patient_History extends JFrame {
         title.setBounds(300, 10, 200, 30);
         panel.add(title);
 
-        String[] columns = {"ID", "Number", "Name", "Gender", "Disease", "Room", "Check-In", "Deposit", "Check-Out"};
+        String[] columns = {"ID", "Number", "Name", "Gender", "Disease", "Room", "Check-In", "Total Amount", "Check-Out"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         JTable table = new JTable(model);
         table.setFont(new Font("Montserrat", Font.PLAIN, 12));
         table.setRowHeight(22);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 60, 770, 280);
+        scrollPane.setBounds(10, 60, 970, 280);
         panel.add(scrollPane);
 
         try {
@@ -43,7 +43,7 @@ public class Patient_History extends JFrame {
                         rs.getString("Patient_Disease"),
                         rs.getString("Room_Number"),
                         rs.getString("Time"),
-                        rs.getString("Deposite"),
+                        rs.getString("Total_Amount"),
                         rs.getString("Check_Out")
                 };
                 model.addRow(data);
@@ -62,7 +62,7 @@ public class Patient_History extends JFrame {
         back.addActionListener(e -> setVisible(false));
 
 
-        setSize(800, 400);
+        setSize(1000, 400);
         setUndecorated(true);
         setLayout(null);
         setLocation(400, 250);

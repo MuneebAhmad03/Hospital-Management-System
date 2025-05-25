@@ -2,172 +2,188 @@ package hospital.management.system;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Patient_Discharge extends JFrame {
-    Patient_Discharge(){
 
+    private Choice patientChoice;
+    private JLabel labelRoomNo, labelCheckIn, labelCheckOut, labelTotalAmount, labelPatientName;
+
+    public Patient_Discharge() {
+        setTitle("Patient Discharge");
+        setSize(800, 450);
+        setLocation(400, 250);
+        setUndecorated(true);
+        setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(5,5,790,390);
+        panel.setBounds(5, 5, 790, 440);
         panel.setBackground(new Color(221, 230, 237));
         panel.setLayout(null);
         add(panel);
 
-        JLabel label = new JLabel("Check-Out");
-        label.setBounds(150,20,100,20);
-        label.setFont(new Font("Poppins",Font.BOLD,20));
-        panel.add(label);
+        JLabel heading = new JLabel("Patient Check-Out");
+        heading.setBounds(280, 10, 300, 30);
+        heading.setFont(new Font("Poppins", Font.BOLD, 22));
+        panel.add(heading);
 
-        JLabel label2 = new JLabel("Customer Id");
-        label2.setBounds(30,80,100,20);
-        label2.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(label2);
+        // Customer ID Choice
+        panel.add(createLabel("Patient ID:", 30, 60));
+        patientChoice = new Choice();
+        patientChoice.setBounds(200, 60, 200, 25);
+        panel.add(patientChoice);
+        populatePatientIDs();
 
-        Choice choice = new Choice();
-        choice.setBounds(200,80,150,25);
-        panel.add(choice);
+        // Patient Name
+        panel.add(createLabel("Patient Name:", 30, 100));
+        labelPatientName = createValueLabel(200, 100);
+        panel.add(labelPatientName);
 
+        // Room Number
+        panel.add(createLabel("Room Number:", 30, 140));
+        labelRoomNo = createValueLabel(200, 140);
+        panel.add(labelRoomNo);
+
+        // Check-In Time
+        panel.add(createLabel("Check-In Time:", 30, 180));
+        labelCheckIn = createValueLabel(200, 180);
+        panel.add(labelCheckIn);
+
+        // Total Amount
+        panel.add(createLabel("Total Amount:", 30, 220));
+        labelTotalAmount = createValueLabel(200, 220);
+        panel.add(labelTotalAmount);
+
+        // Check-Out Time
+        panel.add(createLabel("Check-Out Time:", 30, 260));
+        labelCheckOut = createValueLabel(200, 260);
+        updateCheckoutTime();
+        panel.add(labelCheckOut);
+
+        // Buttons
+        JButton checkButton = createButton("Check", 100, 320);
+        panel.add(checkButton);
+        checkButton.addActionListener(e -> loadPatientDetails());
+
+        JButton dischargeButton = createButton("Discharge", 250, 320);
+        panel.add(dischargeButton);
+        dischargeButton.addActionListener(e -> dischargePatient());
+
+        JButton backButton = createButton("Back", 400, 320);
+        panel.add(backButton);
+        backButton.addActionListener(e -> setVisible(false));
+
+        setVisible(true);
+    }
+
+    // Method to create labels
+    private JLabel createLabel(String text, int x, int y) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Montserrat", Font.BOLD, 14));
+        label.setBounds(x, y, 150, 25);
+        return label;
+    }
+
+    // Method to create dynamic value labels
+    private JLabel createValueLabel(int x, int y) {
+        JLabel label = new JLabel();
+        label.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        label.setBounds(x, y, 250, 25);
+        return label;
+    }
+
+    // Method to create buttons
+    private JButton createButton(String text, int x, int y) {
+        JButton button = new JButton(text);
+        button.setBounds(x, y, 120, 30);
+        button.setBackground(new Color(39, 55, 77));
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Poppins", Font.BOLD, 14));
+        return button;
+    }
+
+    // Populate patient IDs in the choice box
+    private void populatePatientIDs() {
         try {
-
             conn c = new conn();
-            ResultSet resultSet = c.statement.executeQuery("select * from Patient_INFO");
-            while (resultSet.next()){
-                choice.add(resultSet.getString("number"));
+            ResultSet rs = c.statement.executeQuery("SELECT * FROM Patient_Info");
+            while (rs.next()) {
+                patientChoice.add(rs.getString("ID"));
             }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-
-        JLabel label3 = new JLabel("Room No");
-        label3.setBounds(30,130,100,20);
-        label3.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(label3);
-
-
-        JLabel RoomNo = new JLabel();
-        RoomNo.setBounds(200,130,100,20);
-        RoomNo.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(RoomNo);
-
-        JLabel label4 = new JLabel("Check In");
-        label4.setBounds(30,180,100,20);
-        label4.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(label4);
-
-        JLabel checkIN = new JLabel();
-        checkIN.setBounds(200,180,200,20);
-        checkIN.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(checkIN);
-
-        JLabel label5 = new JLabel("Check Out");
-        label5.setBounds(30,230,100,20);
-        label5.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(label5);
-
-        Date date = new Date();
-
-        JLabel checkOut = new JLabel(""+date);
-        checkOut.setBounds(200,230,250,20);
-        checkOut.setFont(new Font("Montserrat",Font.BOLD,14));
-        panel.add(checkOut);
-
-        JButton discharge = new JButton("Discharge");
-        discharge.setBounds(30,300,120,30);
-        discharge.setFont(new Font("Poppins",Font.BOLD,15));
-        discharge.setBackground(new Color(39, 55, 77));
-        discharge.setForeground(Color.WHITE);
-        panel.add(discharge);
-        discharge.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                conn c = new conn();
-                try {
-                    // check-out date
-                    Date date = new Date();
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String formattedDate = sdf.format(date);
-
-                    ResultSet rs = c.statement.executeQuery("SELECT * FROM Patient_info WHERE number = '"+choice.getSelectedItem()+"'");
-                    if (rs.next()) {
-                        // Insert into Patient_History with properly formatted date
-                        String query = "INSERT INTO Patient_History VALUES('" +
-                                rs.getString("ID") + "','" +
-                                rs.getString("Number") + "','" +
-                                rs.getString("Name") + "','" +
-                                rs.getString("Gender") + "','" +
-                                rs.getString("Patient_Disease") + "','" +
-                                rs.getString("Room_Number") + "','" +
-                                rs.getString("Time") + "','" +
-                                rs.getString("Deposite") + "','" +
-                                formattedDate + "')";
-
-                        c.statement.executeUpdate(query);
-                    }
-
-                    c.statement.executeUpdate("DELETE FROM Patient_info WHERE number =  '"+choice.getSelectedItem()+"'");
-                    c.statement.executeUpdate("UPDATE room SET Availability = 'Available' WHERE Room_Number= '"+RoomNo.getText()+"'");
-
-                    JOptionPane.showMessageDialog(null,"Patient Discharged & Moved to History");
-                    setVisible(false);
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+    // Load patient details into labels
+    private void loadPatientDetails() {
+        String id = patientChoice.getSelectedItem();
+        try {
+            conn c = new conn();
+            ResultSet rs = c.statement.executeQuery("SELECT * FROM Patient_Info WHERE ID = '" + id + "'");
+            if (rs.next()) {
+                labelRoomNo.setText(rs.getString("Room_Number"));
+                labelCheckIn.setText(rs.getString("Time"));
+                labelTotalAmount.setText(rs.getString("Total_Amount"));
+                labelPatientName.setText(rs.getString("Name"));
+                updateCheckoutTime();
+            } else {
+                JOptionPane.showMessageDialog(null, "Patient not found.");
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    // Update check-out time label
+    private void updateCheckoutTime() {
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+        labelCheckOut.setText(sdf.format(now));
+    }
 
-        JButton check = new JButton("Check");
-        check.setBounds(170,300,120,30);
-        check.setFont(new Font("Poppins",Font.BOLD,15));
-        check.setBackground(new Color(39, 55, 77));
-        check.setForeground(Color.WHITE);
-        panel.add(check);
-        check.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                conn c = new conn();
+    // Discharge patient and update DB
+    private void dischargePatient() {
+        String id = patientChoice.getSelectedItem();
+        try {
+            conn c = new conn();
+            ResultSet rs = c.statement.executeQuery("SELECT * FROM Patient_Info WHERE ID = '" + id + "'");
+            if (rs.next()) {
+                String name = rs.getString("Name");
+                String gender = rs.getString("Gender");
+                String disease = rs.getString("Patient_Disease");
+                String room = rs.getString("Room_Number");
+                String checkIn = rs.getString("Time");
+                String total = rs.getString("Total_Amount");
+                String number = rs.getString("Number");
 
-                try {
-                    ResultSet resultSet = c.statement.executeQuery("select * from Patient_info where number = '"+choice.getSelectedItem()+"'");
-                    while (resultSet.next()){
-                        RoomNo.setText(resultSet.getString("Room_Number"));
-                        checkIN.setText(resultSet.getString("Time"));
-                    }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String checkoutFormatted = sdf.format(new Date());
 
-                }catch (Exception E){
-                    E.printStackTrace();
-                }
-            }
-        });
+                // Insert into Patient_History
+                String insertQuery = "INSERT INTO Patient_History (ID, Number, Name, Gender, Patient_Disease, Room_Number, Time, Total_Amount, check_out) " +
+                        "VALUES('" + id + "','" + number + "','" + name + "','" + gender + "','" + disease + "','" + room + "','" + checkIn + "','" + total + "','" + checkoutFormatted + "')";
+                c.statement.executeUpdate(insertQuery);
 
-        JButton back = new JButton("Back");
-        back.setBounds(310,300,120,30);
-        back.setFont(new Font("Poppins",Font.BOLD,15));
-        back.setBackground(new Color(39, 55, 77));
-        back.setForeground(Color.WHITE);
-        panel.add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                // Delete from current patient info
+                c.statement.executeUpdate("DELETE FROM Patient_Info WHERE ID = '" + id + "'");
+
+                // Update room availability
+                c.statement.executeUpdate("UPDATE room SET Availability = 'Available' WHERE Room_Number = '" + room + "'");
+
+                JOptionPane.showMessageDialog(null, "Patient Discharged and moved to history.");
                 setVisible(false);
             }
-        });
-
-        setSize(800,400);
-        setUndecorated(true);
-        setLayout(null);
-        setLocation(400,250);
-        setVisible(true);
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     public static void main(String[] args) {
         new Patient_Discharge();
     }
 }
+

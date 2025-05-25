@@ -14,13 +14,13 @@ public class All_Patient_Info extends JFrame {
     All_Patient_Info(){
 
         JPanel panel = new JPanel();
-        panel.setBounds(5,5,890,540);
+        panel.setBounds(5,5,1290,540);
         panel.setBackground(new Color(221, 230, 237));
         panel.setLayout(null);
         add(panel);
 
         JTable table = new JTable();
-        table.setFont(new Font("Montserrat", Font.PLAIN, 13));
+        table.setFont(new Font("Montserrat", Font.PLAIN, 14));
         table.setRowHeight(22);
         table.setShowVerticalLines(false);
 
@@ -30,7 +30,7 @@ public class All_Patient_Info extends JFrame {
         header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 40, 870, 400);
+        scrollPane.setBounds(10, 40, 1270, 400);
         panel.add(scrollPane);
 
         try {
@@ -58,9 +58,9 @@ public class All_Patient_Info extends JFrame {
             }
         });
 
-        setSize(900,550);
+        setSize(1300,550);
         setUndecorated(true);
-        setLocation(300,250);
+        setLocation(125,250);
         setLayout(null);
         setVisible(true);
 

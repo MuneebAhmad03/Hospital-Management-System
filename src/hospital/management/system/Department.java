@@ -23,17 +23,17 @@ public class Department extends JFrame {
         add(panel);
 
         JTable table = new JTable();
-        table.setFont(new Font("Montserrat", Font.PLAIN, 13));
+        table.setFont(new Font("Montserrat", Font.PLAIN, 14));
         table.setRowHeight(22);
         table.setShowVerticalLines(false);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Poppins", Font.BOLD, 14));
+        header.setFont(new Font("Poppins", Font.BOLD, 16));
         header.setBackground(new Color(39, 55, 77));
         header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 50, 800, 330);
+        scrollPane.setBounds(10, 50, 820, 330);
         panel.add(scrollPane);
 
         try{
