@@ -1,5 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Deaprtment_Resources;
 
+import hospital.management.system.Utilities.conn;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
@@ -9,12 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class All_Patient_Info extends JFrame {
-
-    All_Patient_Info(){
-
+public class Ambulance extends JFrame{
+    public Ambulance(){
         JPanel panel = new JPanel();
-        panel.setBounds(5,5,1290,540);
+        panel.setBounds(5,5,890,590);
         panel.setBackground(new Color(221, 230, 237));
         panel.setLayout(null);
         add(panel);
@@ -25,18 +24,17 @@ public class All_Patient_Info extends JFrame {
         table.setShowVerticalLines(false);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Poppins", Font.BOLD, 14));
+        header.setFont(new Font("Poppins", Font.BOLD, 16));
         header.setBackground(new Color(39, 55, 77));
         header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 40, 1270, 400);
+        scrollPane.setBounds(10, 40, 870, 450);
         panel.add(scrollPane);
 
-        try {
-
+        try{
             conn c = new conn();
-            String q = "select* from Patient_Info";
+            String q = "select * from Ambulance";
             ResultSet resultSet = c.statement.executeQuery(q);
             table.setModel(DbUtils.resultSetToTableModel(resultSet));
 
@@ -44,29 +42,26 @@ public class All_Patient_Info extends JFrame {
             e.printStackTrace();
         }
 
-
-        JButton back = new JButton("Back");
-        back.setBounds(400,470,120,30);
-        back.setFont(new Font("Poppins",Font.BOLD,15));
-        back.setBackground(new Color(39, 55, 77));
-        back.setForeground(Color.WHITE);
-        panel.add(back);
-        back.addActionListener(new ActionListener() {
+        JButton button = new JButton("BACK");
+        button.setBounds(450,510,120,30);
+        button.setBackground(new Color(39, 55, 77));
+        button.setForeground(Color.white);
+        panel.add(button);
+        button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
         });
 
-        setSize(1300,550);
         setUndecorated(true);
-        setLocation(125,250);
+        setSize(900,600);
         setLayout(null);
+        setLocation(300,200);
         setVisible(true);
-
     }
-
     public static void main(String[] args) {
-        new All_Patient_Info();
+
+        new Ambulance();
     }
 }

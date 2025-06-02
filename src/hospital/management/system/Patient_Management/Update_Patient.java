@@ -1,4 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Patient_Management;
+
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,6 @@ import java.sql.ResultSet;
 
 public class Update_Patient extends JFrame {
 
-    // Helper method to safely parse integers
     public int safeParseInt(String value) {
         try {
             return Integer.parseInt(value.trim());
@@ -17,7 +18,7 @@ public class Update_Patient extends JFrame {
         }
     }
 
-    Update_Patient() {
+    public Update_Patient() {
         JPanel panel = new JPanel();
         panel.setBounds(5, 5, 940, 490);
         panel.setBackground(new Color(221, 230, 237));
@@ -32,10 +33,10 @@ public class Update_Patient extends JFrame {
 
         JLabel titleLabel = new JLabel("Update Patient Details");
         titleLabel.setBounds(124, 11, 260, 25);
-        titleLabel.setFont(new Font("Poppins", Font.BOLD, 18));
+        titleLabel.setFont(new Font("Poppins", Font.BOLD, 20));
         panel.add(titleLabel);
 
-        JLabel labelID = new JLabel("Patient ID:");
+        JLabel labelID = new JLabel("Patient ID");
         labelID.setBounds(25, 50, 100, 20);
         labelID.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelID);
@@ -55,7 +56,7 @@ public class Update_Patient extends JFrame {
             e.printStackTrace();
         }
 
-        JLabel labelName = new JLabel("Name :");
+        JLabel labelName = new JLabel("Name");
         labelName.setBounds(25, 85, 100, 20);
         labelName.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelName);
@@ -66,7 +67,7 @@ public class Update_Patient extends JFrame {
         textFieldName.setEditable(false);
         panel.add(textFieldName);
 
-        JLabel labelAge = new JLabel("Age:");
+        JLabel labelAge = new JLabel("Age");
         labelAge.setBounds(25, 120, 100, 20);
         labelAge.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelAge);
@@ -77,7 +78,7 @@ public class Update_Patient extends JFrame {
         textFieldAge.setEditable(false);
         panel.add(textFieldAge);
 
-        JLabel labelRoom = new JLabel("Room Number :");
+        JLabel labelRoom = new JLabel("Room Number");
         labelRoom.setBounds(25, 155, 130, 20);
         labelRoom.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelRoom);
@@ -88,27 +89,29 @@ public class Update_Patient extends JFrame {
         textFieldR.setEditable(false);
         panel.add(textFieldR);
 
-        JLabel labelInTime = new JLabel("Check-In Time:");
+        JLabel labelInTime = new JLabel("Check-In Time");
         labelInTime.setBounds(25, 190, 140, 20);
         labelInTime.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelInTime);
 
         JTextField textFieldInTime = new JTextField();
         textFieldInTime.setBounds(248, 190, 150, 20);
+        textFieldInTime.setFont(new Font("Montserrat", Font.PLAIN, 14));
         textFieldInTime.setEditable(false);
         panel.add(textFieldInTime);
 
-        JLabel labelAmount = new JLabel("Amount Paid (Rs) :");
+        JLabel labelAmount = new JLabel("Amount Paid (Rs)");
         labelAmount.setBounds(25, 225, 150, 20);
         labelAmount.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelAmount);
 
         JTextField textFieldAmount = new JTextField();
         textFieldAmount.setBounds(248, 225, 150, 20);
+        textFieldAmount.setFont(new Font("Montserrat", Font.PLAIN, 14));
         textFieldAmount.setEditable(false);
         panel.add(textFieldAmount);
 
-        JLabel labelPending = new JLabel("Pending Amount (Rs) :");
+        JLabel labelPending = new JLabel("Pending Amount (Rs)");
         labelPending.setBounds(25, 260, 190, 20);
         labelPending.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelPending);
@@ -118,7 +121,7 @@ public class Update_Patient extends JFrame {
         textFieldPending.setFont(new Font("Montserrat", Font.PLAIN, 14));
         panel.add(textFieldPending);
 
-        JLabel labelTotal = new JLabel("Total Amount (Rs) :");
+        JLabel labelTotal = new JLabel("Total Amount (Rs)");
         labelTotal.setBounds(25, 295, 150, 20);
         labelTotal.setFont(new Font("Montserrat", Font.BOLD, 16));
         panel.add(labelTotal);
@@ -132,6 +135,7 @@ public class Update_Patient extends JFrame {
         JButton check = new JButton("CHECK");
         check.setBounds(168, 378, 89, 23);
         check.setBackground(new Color(39, 55, 77));
+        check.setFont(new Font("Poppins",Font.BOLD,12));
         check.setForeground(Color.white);
         panel.add(check);
 
@@ -159,6 +163,7 @@ public class Update_Patient extends JFrame {
         JButton update = new JButton("UPDATE");
         update.setBounds(56, 378, 89, 23);
         update.setBackground(new Color(39, 55, 77));
+        update.setFont(new Font("Poppins",Font.BOLD,12));
         update.setForeground(Color.white);
         panel.add(update);
 
@@ -174,7 +179,7 @@ public class Update_Patient extends JFrame {
                     textFieldTotal.setText(String.valueOf(total));
 
                     conn c = new conn();
-                    String updateQuery = "update Patient_Info set Room_Number = '" + room + "', Time = '" + time + "', Deposite = '" + amountInt + "', Pending_Amount = '" + pendingInt + "', Total_Amount = '" + total + "' where ID = '" + patientID + "'";
+                    String updateQuery = "update Patient_Info set Room_Number = '" + room + "', Time = '" + time + "', Deposite = '" + amountInt + "', Total_Amount = '" + total + "' where ID = '" + patientID + "'";
                     c.statement.executeUpdate(updateQuery);
 
                     JOptionPane.showMessageDialog(null, "Updated Successfully");
@@ -189,6 +194,7 @@ public class Update_Patient extends JFrame {
         JButton back = new JButton("BACK");
         back.setBounds(281, 378, 89, 23);
         back.setBackground(new Color(39, 55, 77));
+        back.setFont(new Font("Poppins",Font.BOLD,12));
         back.setForeground(Color.white);
         panel.add(back);
         back.addActionListener(e -> setVisible(false));

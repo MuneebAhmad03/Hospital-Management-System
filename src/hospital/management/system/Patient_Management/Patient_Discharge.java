@@ -1,4 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Patient_Management;
+
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +15,7 @@ public class Patient_Discharge extends JFrame {
     private JLabel labelRoomNo, labelCheckIn, labelCheckOut, labelTotalAmount, labelPatientName;
 
     public Patient_Discharge() {
-        setTitle("Patient Discharge");
-        setSize(800, 450);
-        setLocation(400, 250);
-        setUndecorated(true);
-        setLayout(null);
+
 
         JPanel panel = new JPanel();
         panel.setBounds(5, 5, 790, 440);
@@ -30,40 +28,57 @@ public class Patient_Discharge extends JFrame {
         heading.setFont(new Font("Poppins", Font.BOLD, 22));
         panel.add(heading);
 
-        // Customer ID Choice
-        panel.add(createLabel("Patient ID:", 30, 60));
+        JLabel labelID= new JLabel("Patient ID");
+        labelID.setBounds(30,60,150,25);
+        labelID.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelID);
+
         patientChoice = new Choice();
-        patientChoice.setBounds(200, 60, 200, 25);
+        patientChoice.setBounds(200, 60, 150, 25);
         panel.add(patientChoice);
         populatePatientIDs();
 
-        // Patient Name
-        panel.add(createLabel("Patient Name:", 30, 100));
+        JLabel labelName= new JLabel("Patient Name");
+        labelName.setBounds(30,100,200,25);
+        labelName.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelName);
+
         labelPatientName = createValueLabel(200, 100);
         panel.add(labelPatientName);
 
-        // Room Number
-        panel.add(createLabel("Room Number:", 30, 140));
+        JLabel labelRN= new JLabel("Room Number");
+        labelRN.setBounds(30,140,200,25);
+        labelRN.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelRN);
+
         labelRoomNo = createValueLabel(200, 140);
         panel.add(labelRoomNo);
 
-        // Check-In Time
-        panel.add(createLabel("Check-In Time:", 30, 180));
+        JLabel labelInTime= new JLabel("Check-In Time");
+        labelInTime.setBounds(30,180,200,25);
+        labelInTime.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelInTime);
+
         labelCheckIn = createValueLabel(200, 180);
         panel.add(labelCheckIn);
 
-        // Total Amount
-        panel.add(createLabel("Total Amount:", 30, 220));
+        JLabel labelTA= new JLabel("Total Amount");
+        labelTA.setBounds(30,220,200,25);
+        labelTA.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelTA);
         labelTotalAmount = createValueLabel(200, 220);
         panel.add(labelTotalAmount);
 
-        // Check-Out Time
-        panel.add(createLabel("Check-Out Time:", 30, 260));
+
+        JLabel labelOutT= new JLabel("Check-Out Time");
+        labelOutT.setBounds(30,260,200,25);
+        labelOutT.setFont(new Font("Montserrat",Font.BOLD,16));
+        panel.add(labelOutT);
+
         labelCheckOut = createValueLabel(200, 260);
         updateCheckoutTime();
         panel.add(labelCheckOut);
 
-        // Buttons
         JButton checkButton = createButton("Check", 100, 320);
         panel.add(checkButton);
         checkButton.addActionListener(e -> loadPatientDetails());
@@ -76,10 +91,14 @@ public class Patient_Discharge extends JFrame {
         panel.add(backButton);
         backButton.addActionListener(e -> setVisible(false));
 
+
+        setSize(800, 450);
+        setLocation(400, 250);
+        setUndecorated(true);
+        setLayout(null);
         setVisible(true);
     }
 
-    // Method to create labels
     private JLabel createLabel(String text, int x, int y) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Montserrat", Font.BOLD, 14));
@@ -87,7 +106,6 @@ public class Patient_Discharge extends JFrame {
         return label;
     }
 
-    // Method to create dynamic value labels
     private JLabel createValueLabel(int x, int y) {
         JLabel label = new JLabel();
         label.setFont(new Font("Montserrat", Font.PLAIN, 14));
@@ -95,7 +113,6 @@ public class Patient_Discharge extends JFrame {
         return label;
     }
 
-    // Method to create buttons
     private JButton createButton(String text, int x, int y) {
         JButton button = new JButton(text);
         button.setBounds(x, y, 120, 30);
@@ -105,7 +122,6 @@ public class Patient_Discharge extends JFrame {
         return button;
     }
 
-    // Populate patient IDs in the choice box
     private void populatePatientIDs() {
         try {
             conn c = new conn();
@@ -118,7 +134,6 @@ public class Patient_Discharge extends JFrame {
         }
     }
 
-    // Load patient details into labels
     private void loadPatientDetails() {
         String id = patientChoice.getSelectedItem();
         try {
@@ -138,14 +153,12 @@ public class Patient_Discharge extends JFrame {
         }
     }
 
-    // Update check-out time label
     private void updateCheckoutTime() {
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
         labelCheckOut.setText(sdf.format(now));
     }
 
-    // Discharge patient and update DB
     private void dischargePatient() {
         String id = patientChoice.getSelectedItem();
         try {
@@ -177,6 +190,7 @@ public class Patient_Discharge extends JFrame {
                 JOptionPane.showMessageDialog(null, "Patient Discharged and moved to history.");
                 setVisible(false);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

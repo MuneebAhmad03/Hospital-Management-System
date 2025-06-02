@@ -1,13 +1,29 @@
-package hospital.management.system;
+package hospital.management.system.Staff;
+
+import hospital.management.system.Core_Modules.Login;
+import hospital.management.system.Appointment.Appointments;
+import hospital.management.system.Appointment.ViewAppointments;
+import hospital.management.system.Deaprtment_Resources.Ambulance;
+import hospital.management.system.Deaprtment_Resources.Department;
+import hospital.management.system.Deaprtment_Resources.Search_Room;
+import hospital.management.system.Patient_Management.New_Patient;
+import hospital.management.system.Patient_Management.Patient_Discharge;
+import hospital.management.system.Patient_Management.Patient_History;
+import hospital.management.system.Patient_Management.Update_Patient;
+import hospital.management.system.Utilities.conn;
+import net.proteanit.sql.DbUtils;
+
 
 import javax.swing.*;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class Reception extends JFrame {
 
-    Reception(){
+    public Reception(){
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -88,7 +104,7 @@ public class Reception extends JFrame {
         });
 
 
-        JButton btn5 = new JButton("Current Patient");
+        JButton btn5 = new JButton("Department");
         btn5.setBounds(270,58,150,30);
         btn5.setBackground(new Color(39 ,55 ,77));
         btn5.setForeground(Color.white);
@@ -97,14 +113,14 @@ public class Reception extends JFrame {
         btn5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new All_Patient_Info();
+                new Department();
 
             }
         });
 
 
 
-        JButton btn6 = new JButton("Department");
+        JButton btn6 = new JButton("Ambulance");
         btn6.setBounds(270,100,150,30);
         btn6.setBackground(new Color(39 ,55 ,77));
         btn6.setForeground(Color.white);
@@ -113,11 +129,11 @@ public class Reception extends JFrame {
         btn6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Department();
+                new Ambulance();
             }
         });
 
-        JButton btn7 = new JButton("Ambulance");
+        JButton btn7 = new JButton("Employee Info");
         btn7.setBounds(510,15,150,30);
         btn7.setBackground(new Color(39 ,55 ,77));
         btn7.setForeground(Color.white);
@@ -126,13 +142,12 @@ public class Reception extends JFrame {
         btn7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Ambulance();
+                new Employee_info();
 
             }
         });
 
-
-        JButton btn8 = new JButton("Employee Info");
+        JButton btn8 = new JButton("Appointments");
         btn8.setBounds(510,58,150,30);
         btn8.setBackground(new Color(39 ,55 ,77));
         btn8.setForeground(Color.white);
@@ -141,13 +156,13 @@ public class Reception extends JFrame {
         btn8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Employee_info();
+                new Appointments();
             }
         });
 
 
 
-        JButton btn9 = new JButton("Appointments");
+        JButton btn9 = new JButton("Patient History");
         btn9.setBounds(510,100,150,30);
         btn9.setBackground(new Color(39 ,55 ,77));
         btn9.setForeground(Color.white);
@@ -156,12 +171,12 @@ public class Reception extends JFrame {
         btn9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Appointments();
+                new Patient_History();
             }
         });
 
 
-        JButton btn10 = new JButton("Patient Hisory");
+        JButton btn10 = new JButton("View Appointments");
         btn10.setBounds(750,15,150,30);
         btn10.setBackground(new Color(39 ,55 ,77));
         btn10.setForeground(Color.white);
@@ -171,10 +186,12 @@ public class Reception extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new Patient_History();
+                new ViewAppointments();
 
             }
-        });JButton btn11 = new JButton("View Appointments");
+        });
+
+        JButton btn11 = new JButton("Log Out");
         btn11.setBounds(750,58,150,30);
         btn11.setBackground(new Color(39 ,55 ,77));
         btn11.setForeground(Color.white);
@@ -183,25 +200,47 @@ public class Reception extends JFrame {
         btn11.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ViewAppointments();
-
-            }
-        });
-
-
-        JButton btn12 = new JButton("Log Out");
-        btn12.setBounds(750,100,150,30);
-        btn12.setBackground(new Color(39 ,55 ,77));
-        btn12.setForeground(Color.white);
-        btn12.setFont(new Font("Poppins",Font.BOLD,12));
-        panel1.add(btn12);
-        btn11.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 new Login();
+
             }
         });
+
+
+        JLabel labelPD = new JLabel("Admitted Patient");
+        labelPD.setBounds(25,20,200,25);
+        labelPD.setFont(new Font("Montserrat",Font.BOLD,24));
+        labelPD.setForeground(Color.WHITE);
+        panel.add(labelPD);
+
+        JTable table = new JTable();
+        table.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        table.setRowHeight(22);
+        table.setBackground(new Color(221, 230, 237));
+        table.setShowVerticalLines(false);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Poppins", Font.BOLD, 14));
+        header.setBackground(new Color(39, 55, 77));
+        header.setForeground(Color.WHITE);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(10, 90, 1500, 400);
+        panel.add(scrollPane);
+
+        try {
+
+            conn c = new conn();
+            String q = "select* from Patient_Info";
+            ResultSet resultSet = c.statement.executeQuery(q);
+            table.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
 
 
 

@@ -1,8 +1,8 @@
-package hospital.management.system;
+package hospital.management.system.Deaprtment_Resources;
 
+import hospital.management.system.Utilities.conn;
 import net.proteanit.sql.DbUtils;
 
-import hospital.management.system.conn;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class Search_Room extends JFrame {
 
     Choice choice;
     JTable table;
-    Search_Room(){
+    public Search_Room(){
         JPanel panel = new JPanel();
         panel.setBounds(5,5,690,490);
         panel.setBackground(new Color(221, 230, 237));
@@ -27,9 +27,9 @@ public class Search_Room extends JFrame {
         For.setFont(new Font("Montserrat",Font.BOLD,20));
         panel.add(For);
 
-        JLabel status = new JLabel("Status :");
+        JLabel status = new JLabel("Status");
         status.setBounds(70,70,80,20);
-        status.setFont(new Font("Montserrat",Font.BOLD,14));
+        status.setFont(new Font("Montserrat",Font.BOLD,16));
         panel.add(status);
 
         choice =new Choice();
@@ -39,7 +39,7 @@ public class Search_Room extends JFrame {
         panel.add(choice);
 
         table = new JTable();
-        table.setBounds(0,187,700,210);
+        table.setBounds(10,187,700,210);
         table.setBackground(new Color(221, 230, 237));
         panel.add(table);
 
@@ -55,22 +55,22 @@ public class Search_Room extends JFrame {
 
         JLabel Roomno = new JLabel("Room Number");
         Roomno.setBounds(23,162,150,20);
-        Roomno.setFont(new Font("Montserrat",Font.BOLD,14));
+        Roomno.setFont(new Font("Montserrat",Font.BOLD,16));
         panel.add(Roomno);
 
         JLabel available = new JLabel("Availability");
-        available.setBounds(175,162,150,20);
-        available.setFont(new Font("Montserrat",Font.BOLD,14));
+        available.setBounds(195,162,150,20);
+        available.setFont(new Font("Montserrat",Font.BOLD,16));
         panel.add(available);
 
         JLabel price = new JLabel("Price");
-        price.setBounds(458,162,150,20);
-        price.setFont(new Font("Montserrat",Font.BOLD,14));
+        price.setBounds(430,162,150,20);
+        price.setFont(new Font("Montserrat",Font.BOLD,16));
         panel.add(price);
 
         JLabel Bed = new JLabel("Bed Type");
         Bed.setBounds(580,162,150,20);
-        Bed.setFont(new Font("Montserrat",Font.BOLD,14));
+        Bed.setFont(new Font("Montserrat",Font.BOLD,16));
         panel.add(Bed);
 
         JButton Search = new JButton("Search");

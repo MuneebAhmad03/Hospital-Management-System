@@ -1,4 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Appointment;
+
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,7 @@ import java.util.*;
 
 public class Appointments extends JFrame {
 
-    Appointments() {
+    public Appointments() {
         setTitle("Appointments Scheduler");
 
         JPanel panel = new JPanel();
@@ -18,7 +20,7 @@ public class Appointments extends JFrame {
 
         JLabel heading = new JLabel("Schedule Appointment");
         heading.setFont(new Font("Poppins", Font.BOLD, 20));
-        heading.setBounds(200, 20, 300, 30);
+        heading.setBounds(170, 20, 300, 30);
         panel.add(heading);
 
         JLabel patientLabel = new JLabel("Select Patient ID:");
@@ -68,7 +70,7 @@ public class Appointments extends JFrame {
         panel.add(timeLabel);
 
         JTextField timeField = new JTextField();
-        timeField.setBounds(180, 240, 180, 20);
+        timeField.setBounds(180, 240, 150, 20);
         timeField.setFont(new Font("Montserrat",Font.PLAIN,14));
         panel.add(timeField);
 

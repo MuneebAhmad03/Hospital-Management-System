@@ -1,4 +1,7 @@
-package hospital.management.system ;
+package hospital.management.system.Core_Modules ;
+
+import hospital.management.system.Staff.Reception;
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +20,7 @@ public class Login extends JFrame implements ActionListener {
 
 
 
-        Login(){
+        public Login(){
 
             JLabel nameLabel = new JLabel("Username");
             nameLabel.setBounds(40,20,100,30);
@@ -31,13 +34,13 @@ public class Login extends JFrame implements ActionListener {
 
             textField = new JTextField();
             textField.setBounds(150,20,150,30);
-            textField.setFont(new Font("Montserrat",Font.PLAIN,15));
+            textField.setFont(new Font("Montserrat",Font.PLAIN,16));
             textField.setBackground(new Color(157, 178, 191));
             add(textField);
 
              jPasswordField = new JPasswordField();
              jPasswordField.setBounds(150,70,150,30);
-             jPasswordField.setFont(new Font("Montserrat",Font.PLAIN,15));
+             jPasswordField.setFont(new Font("Montserrat",Font.PLAIN,16));
              jPasswordField.setBackground(new Color(157, 178, 191));
              add(jPasswordField);
 

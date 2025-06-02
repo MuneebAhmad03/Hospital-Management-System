@@ -1,5 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Staff;
 
+import hospital.management.system.Utilities.conn;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
@@ -9,10 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class Ambulance extends JFrame{
-    Ambulance(){
+public class Employee_info extends JFrame {
+
+    Employee_info(){
+
         JPanel panel = new JPanel();
-        panel.setBounds(5,5,890,590);
+        panel.setBounds(5,5,990,540);
         panel.setBackground(new Color(221, 230, 237));
         panel.setLayout(null);
         add(panel);
@@ -28,40 +31,44 @@ public class Ambulance extends JFrame{
         header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 40, 870, 450);
+        scrollPane.setBounds(10, 34, 970, 450);
         panel.add(scrollPane);
 
-        try{
+        try {
             conn c = new conn();
-            String q = "select * from Ambulance";
+            String q = "select * from emp_info";
             ResultSet resultSet = c.statement.executeQuery(q);
             table.setModel(DbUtils.resultSetToTableModel(resultSet));
+
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
-
-        JButton button = new JButton("BACK");
-        button.setBounds(450,510,120,30);
-        button.setBackground(new Color(39, 55, 77));
-        button.setForeground(Color.white);
-        panel.add(button);
-        button.addActionListener(new ActionListener() {
+        JButton back = new JButton("Back");
+        back.setBounds(350,500,120,30);
+        back.setFont(new Font("Poppins",Font.BOLD,15));
+        back.setBackground(new Color(39, 55, 77));
+        back.setForeground(Color.WHITE);
+        panel.add(back);
+        back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
         });
 
+        setSize(1000,550);
         setUndecorated(true);
-        setSize(900,600);
+        setLocation(300,250);
         setLayout(null);
-        setLocation(300,200);
         setVisible(true);
+
     }
+
     public static void main(String[] args) {
 
-        new Ambulance();
+        new Employee_info();
+
     }
 }

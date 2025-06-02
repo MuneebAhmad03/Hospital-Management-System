@@ -1,5 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Deaprtment_Resources;
 
+import hospital.management.system.Utilities.conn;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class Department extends JFrame {
 
     JPanel panel = new JPanel();
 
-    Department(){
+    public Department(){
 
         JPanel panel = new JPanel();
         panel.setBounds(5,5,840,540);

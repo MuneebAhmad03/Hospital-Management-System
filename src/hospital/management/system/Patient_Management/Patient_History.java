@@ -1,13 +1,16 @@
-package hospital.management.system;
+package hospital.management.system.Patient_Management;
+
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.sql.ResultSet;
 
 public class Patient_History extends JFrame {
 
-    Patient_History() {
+    public Patient_History() {
 
         JPanel panel = new JPanel();
         panel.setBounds(5, 5, 990, 390);
@@ -25,6 +28,11 @@ public class Patient_History extends JFrame {
         JTable table = new JTable(model);
         table.setFont(new Font("Montserrat", Font.PLAIN, 12));
         table.setRowHeight(22);
+
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Poppins", Font.BOLD, 12));
+        header.setBackground(new Color(39, 55, 77));
+        header.setForeground(Color.WHITE);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(10, 60, 970, 280);
@@ -68,6 +76,7 @@ public class Patient_History extends JFrame {
         setLocation(400, 250);
         setVisible(true);
     }
+
 
     public static void main(String[] args) {
         new Patient_History();

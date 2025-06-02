@@ -1,4 +1,4 @@
-package hospital.management.system;
+package hospital.management.system.Core_Modules;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ public class Splash extends JFrame {
     Splash() {
 
         ImageIcon imageIcon = new ImageIcon(ClassLoader.getSystemResource("icon/splashlogin.png"));
-        Image scaledImage = imageIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // stretch to fit
+        Image scaledImage = imageIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
         imageLabel.setBounds(0, 0, 750, 300);
         add(imageLabel);

@@ -1,4 +1,6 @@
-package hospital.management.system;
+package hospital.management.system.Appointment;
+
+import hospital.management.system.Utilities.conn;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +15,7 @@ public class ViewAppointments extends JFrame {
     DefaultTableModel model;
     JButton cancelBtn, backBtn;
 
-    ViewAppointments() {
+    public ViewAppointments() {
 
 
         JPanel panel = new JPanel();
@@ -40,7 +42,7 @@ public class ViewAppointments extends JFrame {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Poppins", Font.BOLD, 16));
+        header.setFont(new Font("Poppins", Font.BOLD, 14));
         header.setBackground(new Color(39, 55, 77));
         header.setForeground(Color.WHITE);
 
@@ -48,7 +50,6 @@ public class ViewAppointments extends JFrame {
         scrollPane.setBounds(10, 50, 970, 400);
         panel.add(scrollPane);
 
-        // Cancel Button
         cancelBtn = new JButton("Cancel Appointment");
         cancelBtn.setBounds(350, 460, 180, 35);
         cancelBtn.setBackground(new Color(39, 55, 77));
@@ -57,7 +58,7 @@ public class ViewAppointments extends JFrame {
         cancelBtn.setEnabled(false);
         panel.add(cancelBtn);
 
-        // Back Button
+
         backBtn = new JButton("Back");
         backBtn.setBounds(560, 460, 120, 35);
         backBtn.setBackground(new Color(39, 55, 77));
@@ -89,10 +90,7 @@ public class ViewAppointments extends JFrame {
             }
         });
 
-        // Back button functionality
         backBtn.addActionListener(e -> setVisible(false));
-
-
 
         setSize(1000, 550);
         setLocation(300,250);
