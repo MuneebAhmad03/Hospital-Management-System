@@ -46,14 +46,30 @@ public class Update_Patient extends JFrame {
         panel.add(choiceID);
 
         // Load patient IDs
+//        try {
+//            conn c = new conn();
+//            ResultSet rs = c.statement.executeQuery("select ID from Patient_Info");
+//            while (rs.next()) {
+//                choiceID.add(rs.getString("ID"));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         try {
             conn c = new conn();
-            ResultSet rs = c.statement.executeQuery("select ID from Patient_Info");
+            // Modified query to ensure proper ordering
+            ResultSet rs = c.statement.executeQuery("SELECT ID FROM Patient_Info ORDER BY LENGTH(ID), ID");
+
+            // Clear existing items first (important)
+            choiceID.removeAll();
+
             while (rs.next()) {
-                choiceID.add(rs.getString("ID"));
+                choiceID.add(rs.getString("ID"));  // This is correct - getString() is proper
             }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading patient IDs");
         }
 
         JLabel labelName = new JLabel("Name");

@@ -111,6 +111,7 @@ public class Appointments extends JFrame {
                 String id = patientChoice.getSelectedItem();
                 try {
                     conn c = new conn();
+
                     ResultSet rs = c.statement.executeQuery("SELECT Name FROM Patient_info WHERE ID = '" + id + "'");
                     if (rs.next()) {
                         patientNameField.setText(rs.getString("Name"));
